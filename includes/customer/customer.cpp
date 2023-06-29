@@ -48,29 +48,31 @@ Customer::Customer(std::string name, std::string adress) {
 Customer::~Customer() {
 }
 
+std::stack<unsigned int> Customer::getmRentedVideos() const {
+    return mRentedVideos;
+}
+
 void Customer::rentVideo(unsigned int id) {
     mRentedVideos.push(id);
 }
 
 void Customer::returnVideos() {
     if (mRentedVideos.empty()) {
-        std::cout << "No videos to return" << std::endl;
+        std::cout << "No videos rented!" << std::endl;
         return;
     }
     while (!mRentedVideos.empty()) {
-        std::cout << "Video ID: " << mRentedVideos.top() << std::endl;
         mRentedVideos.pop();
     }
 }
 
-void Customer::displayRentedVideos() const {
+void Customer::displayVideos() const {
     if (mRentedVideos.empty()) {
         std::cout << "No videos rented" << std::endl;
         return;
     }
-    std::cout << "List of Videos Rented..." << std::endl;
-    std::cout << std::endl;
-    std::stack<int> temp = mRentedVideos;
+
+    std::stack<unsigned int> temp = mRentedVideos;
     while (!temp.empty()) {
         std::cout << "Video ID: " << temp.top() << std::endl;
         temp.pop();

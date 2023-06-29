@@ -166,18 +166,27 @@ void VideoLibrary::checkOutVideo(unsigned int id) {
 }
 
 /**
- * This function is used to check in a video.
+ * This function is used to check in all rented videos.
  * The number of copies of the video is increased by 1.
- * @param id the id of the video to be checked in
+ * @param rentedVideosID a stack of ids of rented videos.
  */
-void VideoLibrary::checkInVideo(unsigned int id) {
-    Video *temp = mHead;
-
-    if (temp->getmID() == id) {
-        temp->increaseNumberOfCopies();
+void VideoLibrary::checkInVideos(std::stack<unsigned int> rentedVideosID) {
+    if (rentedVideosID.empty()) {
         return;
     }
-    temp = temp->getmNext();
+
+    while (!rentedVideosID.empty()) {
+        unsigned int id = rentedVideosID.top();
+        Video *temp = mHead;
+        while (temp != NULL) {
+            if (temp->getmID() == id) {
+                temp->increaseNumberOfCopies();
+                break;
+            }
+            temp = temp->getmNext();
+        }
+        rentedVideosID.pop();
+    }
 }
 
 /**

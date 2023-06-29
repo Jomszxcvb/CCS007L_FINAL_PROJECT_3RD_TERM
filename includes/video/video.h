@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stack>
 #include <iostream>
 
 /**
@@ -59,7 +60,7 @@ public:
     Video *searchVideo(unsigned int id) const;
 
     void checkOutVideo(unsigned int id);
-    void checkInVideo(unsigned int id);
+    void checkInVideos(std::stack<unsigned int> rentedVideosID);
     void displayAllVideos() const;
 };
 
